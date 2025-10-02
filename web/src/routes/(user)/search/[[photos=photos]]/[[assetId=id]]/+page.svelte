@@ -107,11 +107,13 @@
     const route = from?.route?.id;
 
     if (isPeopleRoute(route)) {
-      previousRoute = AppRoute.PHOTOS;
+      const { personId, photos, assetId } = from?.params ?? {};
+      previousRoute = personId && photos && assetId ? `${AppRoute.PEOPLE}/${personId}/${photos}/${assetId}` : AppRoute.PEOPLE;
     }
 
     if (isAlbumsRoute(route)) {
-      previousRoute = AppRoute.EXPLORE;
+      const { albumId, photos, assetId } = from?.params ?? {};
+      previousRoute = albumId && photos && assetId ? `${AppRoute.ALBUMS}/${albumId}/${photos}/${assetId}` : AppRoute.ALBUMS;
     }
 
     tick()
