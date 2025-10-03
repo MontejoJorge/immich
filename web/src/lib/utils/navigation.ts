@@ -19,6 +19,8 @@ export const isSearchRoute = (route?: string | null) => !!route?.startsWith('/(u
 export const isAlbumsRoute = (route?: string | null) => !!route?.startsWith('/(user)/albums/[albumId=id]');
 export const isPeopleRoute = (route?: string | null) => !!route?.startsWith('/(user)/people/[personId]');
 export const isLockedFolderRoute = (route?: string | null) => !!route?.startsWith('/(user)/locked');
+export const isExploreRoute = (route?: string | null) => !!route?.startsWith('/(user)/explore');
+export const isMapRoute = (route?: string | null) => !!route?.startsWith('/(user)/map');
 
 export const isAssetViewerRoute = (target?: NavigationTarget | null) =>
   !!(target?.route.id?.endsWith('/[[assetId=id]]') && 'assetId' in (target?.params || {}));

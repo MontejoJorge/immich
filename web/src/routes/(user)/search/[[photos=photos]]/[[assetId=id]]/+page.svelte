@@ -32,7 +32,7 @@
   import { cancelMultiselect } from '$lib/utils/asset-utils';
   import { parseUtcDate } from '$lib/utils/date-time';
   import { handleError } from '$lib/utils/handle-error';
-  import { isAlbumsRoute, isPeopleRoute } from '$lib/utils/navigation';
+  import { isAlbumsRoute, isExploreRoute, isMapRoute, isPeopleRoute } from '$lib/utils/navigation';
   import { toTimelineAsset } from '$lib/utils/timeline-util';
   import {
     type AlbumResponseDto,
@@ -105,6 +105,16 @@
       previousRoute = from.url.href;
     }
     const route = from?.route?.id;
+    
+    console.log(from)
+
+    if (isExploreRoute(route)) {
+      previousRoute = AppRoute.EXPLORE;
+    }
+
+      if (isMapRoute(route)) {
+      previousRoute = AppRoute.MAP;
+    }
 
     if (isPeopleRoute(route)) {
       const { personId, photos, assetId } = from?.params ?? {};
