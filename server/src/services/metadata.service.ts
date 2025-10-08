@@ -454,13 +454,20 @@ export class MetadataService extends BaseService {
     return { width, height };
   }
 
-  private getExifTags(asset: {
+  private async getExifTags(asset: {
     originalPath: string;
     sidecarPath: string | null;
     type: AssetType;
   }): Promise<ImmichTags> {
     if (!asset.sidecarPath && asset.type === AssetType.Image) {
-      return this.metadataRepository.readTags(asset.originalPath);
+      const tags = await this.metadataRepository.readTags(asset.originalPath);
+
+      // Correct duration format for gifs
+      if (tags.Duration && !Number.isNaN(Number(tags.Duration))) {
+        tags.Duration = Duration.fromObject({ seconds: Number(tags.Duration) }).toFormat('hh:mm:ss.SSS'); 
+      }
+
+      return tags;
     }
 
     return this.mergeExifTags(asset);
